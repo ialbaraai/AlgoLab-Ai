@@ -6,9 +6,9 @@
 *.user
 *.userosscache
 *.sln.docstates
-.slnx
-.vcxproj
-.vcxproj.filters
+*.slnx
+*.vcxproj
+*.vcxproj.filters
 
 # ---------------- Build folders ----------------
 **/build/
