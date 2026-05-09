@@ -3,7 +3,7 @@
 #define CSV_H
 
 #include "csvmap.h"
-#include "csvreader.h"
+#include "rapidcsv.h"
 #include "../../tinyfiledialogs/tinyfiledialogs.h"
 
 class CSV_T

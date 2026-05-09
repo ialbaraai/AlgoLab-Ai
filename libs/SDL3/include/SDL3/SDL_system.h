@@ -548,10 +548,10 @@ typedef void (SDLCALL *SDL_RequestAndroidPermissionCallback)(void *userdata, con
  * specific entitlement, the callback will still fire, probably on the current
  * thread and before this function returns.
  *
- * If the request submission fails, this function returns -1 and the callback
- * will NOT be called, but this should only happen in catastrophic conditions,
- * like memory running out. Normally there will be a yes or no to the request
- * through the callback.
+ * If the request submission fails, this function returns false and the
+ * callback will NOT be called, but this should only happen in catastrophic
+ * conditions, like memory running out. Normally there will be a yes or no to
+ * the request through the callback.
  *
  * For the `permission` parameter, choose a value from here:
  *
@@ -615,6 +615,19 @@ extern SDL_DECLSPEC bool SDLCALL SDL_ShowAndroidToast(const char *message, int d
 extern SDL_DECLSPEC bool SDLCALL SDL_SendAndroidMessage(Uint32 command, int param);
 
 #endif /* SDL_PLATFORM_ANDROID */
+
+/**
+ * Query if the current device is a phone.
+ *
+ * If SDL can't determine this, it will return false.
+ *
+ * \returns true if the device is a phone, false otherwise.
+ *
+ * \threadsafety It is safe to call this function from any thread.
+ *
+ * \since This function is available since SDL 3.6.0.
+ */
+extern SDL_DECLSPEC bool SDLCALL SDL_IsPhone(void);
 
 /**
  * Query if the current device is a tablet.

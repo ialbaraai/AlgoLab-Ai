@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include <cmath>
 
 KNearestNeighbor::KNearestNeighbor() {}
 

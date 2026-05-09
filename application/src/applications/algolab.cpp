@@ -46,7 +46,7 @@ int AlgoLab::run()
 			return 1;
 		}
 
-		SDL_Window* window = SDL_CreateWindow("AlgoLab Ai", 500, 500, NULL);
+		SDL_Window* window = SDL_CreateWindow("AlgoLab Ai", 500, 500, 0);
 
 		if (!window)
 		{
@@ -69,7 +69,7 @@ int AlgoLab::run()
 			return 1;
 		}
 
-		SDL_Surface* icon = IMG_Load("algolab_icon.png");
+		SDL_Surface* icon = IMG_Load("assets/algolab_icon.png");
 		SDL_Texture* icontexture = nullptr;
 
 		if (icon)
@@ -96,8 +96,8 @@ int AlgoLab::run()
 		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.38f, 0.22f, 0.70f, 1.0f);
 		style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.22f, 0.10f, 0.50f, 1.0f);
 
-		ImFont* robotoLarge = io.Fonts->AddFontFromFileTTF("Roboto.ttf", 28.0f);
-		ImFont* roboto = io.Fonts->AddFontFromFileTTF("Roboto.ttf", 16.0f);
+		ImFont* robotoLarge = io.Fonts->AddFontFromFileTTF("assets/Roboto.ttf", 28.0f);
+		ImFont* roboto = io.Fonts->AddFontFromFileTTF("assets/Roboto.ttf", 16.0f);
 
 		bool is_running = true;
 		SDL_Event event;

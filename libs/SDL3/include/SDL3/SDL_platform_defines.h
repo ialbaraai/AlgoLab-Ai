@@ -277,7 +277,7 @@
 #define SDL_PLATFORM_OSF 1
 #endif
 
-#ifdef __QNXNTO__
+#if defined(__QNXNTO__) || defined(__QNX__)
 
 /**
  * A preprocessor macro that is only defined if compiling for QNX Neutrino.
@@ -482,6 +482,16 @@
  * \since This macro is available since SDL 3.4.0.
  */
 #define SDL_PLATFORM_NGAGE 1
+#endif
+
+#ifdef __MSDOS__
+
+/**
+ * A preprocessor macro that is only defined if compiling for MS-DOS.
+ *
+ * \since This macro is available since SDL 3.6.0.
+ */
+#define SDL_PLATFORM_DOS 1
 #endif
 
 #ifdef __GNU__

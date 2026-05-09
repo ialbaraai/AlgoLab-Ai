@@ -12,6 +12,9 @@ Debug/
 Release/
 build/
 out/
+devbin/
+
+.vscode/
 
 CMakeFiles/
 CMakeCache.txt

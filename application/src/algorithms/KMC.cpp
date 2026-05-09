@@ -1,6 +1,7 @@
 #include "../../include/algorithms/KMC.h"
 
 #include <iostream>
+#include <cmath>
 
 KMeansClustering::KMeansClustering() {}
 

@@ -2,7 +2,7 @@
 // This needs to be used along with a Platform Backend (e.g. GLFW, SDL, Win32, custom..)
 
 // Implemented features:
-//  [!] Renderer: User texture binding. Use 'VkDescriptorSet' as texture identifier. Call ImGui_ImplVulkan_AddTexture() to register one. Read the FAQ about ImTextureID/ImTextureRef + https://github.com/ocornut/imgui/pull/914 for discussions.
+//  [!] Renderer: User texture binding. Use a VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE 'VkDescriptorSet' as texture identifier. Call ImGui_ImplVulkan_AddTexture() to register one. Read the FAQ about ImTextureID/ImTextureRef + https://github.com/ocornut/imgui/pull/914 for discussions.
 //  [X] Renderer: Large meshes support (64k+ vertices) even with 16-bit indices (ImGuiBackendFlags_RendererHasVtxOffset).
 //  [X] Renderer: Texture updates support for dynamic font atlas (ImGuiBackendFlags_RendererHasTextures).
 //  [X] Renderer: Expose selected render state for draw callbacks to use. Access in '(ImGui_ImplXXXX_RenderState*)GetPlatformIO().Renderer_RenderState'.
@@ -173,9 +173,6 @@ struct ImGui_ImplVulkan_RenderState
     VkCommandBuffer     CommandBuffer;
     VkPipeline          Pipeline;
     VkPipelineLayout    PipelineLayout;
-    VkDescriptorSet     SamplerLinearDS;    // Bilinear filtering sampler
-    VkDescriptorSet     SamplerNearestDS;   // Nearest/point filtering sampler
-    VkDescriptorSet     SamplerCurrentDS;   // Current sampler (may be changed by callback)
 };
 
 //-------------------------------------------------------------------------
@@ -260,7 +257,7 @@ struct ImGui_ImplVulkanH_Window
         memset((void*)this, 0, sizeof(*this));
 
         // Parameters to create SwapChain
-        PresentMode = (VkPresentModeKHR)~0;             // Ensure we get an error if user doesn't set this.
+        PresentMode = VK_PRESENT_MODE_MAX_ENUM_KHR;     // Ensure we get an error if user doesn't set this.
 
         // Parameters to create RenderPass
         AttachmentDesc.format = VK_FORMAT_UNDEFINED;    // Will automatically use wd->SurfaceFormat.format.

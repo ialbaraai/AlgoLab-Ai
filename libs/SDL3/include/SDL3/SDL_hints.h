@@ -725,6 +725,23 @@ extern "C" {
 #define SDL_HINT_DISPLAY_USABLE_BOUNDS "SDL_DISPLAY_USABLE_BOUNDS"
 
 /**
+ * A variable that enables a fast framebuffer path on DOS.
+ *
+ * When set to "1", SDL_UpdateWindowSurface() copies the system-RAM surface
+ * directly to VRAM and skips software cursor compositing and vsync.
+ *
+ * The variable can be set to the following values:
+ *
+ * - "0": Use the normal path with cursor compositing and vsync. (default)
+ * - "1": Use the fast direct-to-VRAM path when available.
+ *
+ * This hint must be set before the first call to SDL_GetWindowSurface().
+ *
+ * \since This hint is available since SDL 3.6.0.
+ */
+#define SDL_HINT_DOS_ALLOW_DIRECT_FRAMEBUFFER "SDL_DOS_ALLOW_DIRECT_FRAMEBUFFER"
+
+/**
  * Set the level of checking for invalid parameters passed to SDL functions.
  *
  * The variable can be set to the following values:
@@ -1151,6 +1168,21 @@ extern "C" {
 #define SDL_HINT_GPU_DRIVER "SDL_GPU_DRIVER"
 
 /**
+ * A variable that specifies the library name to use when loading the OpenXR
+ * loader.
+ *
+ * By default, SDL will try the system default name, but on some platforms
+ * like Windows, debug builds of the OpenXR loader have a different name, and
+ * are not always directly compatible with release applications. Setting this
+ * hint allows you to compensate for this difference in your app when
+ * applicable.
+ *
+ * This hint should be set before the OpenXR loader is loaded. For example,
+ * creating an OpenXR GPU device will load the OpenXR loader.
+ */
+#define SDL_HINT_OPENXR_LIBRARY "SDL_OPENXR_LIBRARY"
+
+/**
  * A variable to control whether SDL_hid_enumerate() enumerates all HID
  * devices or only controllers.
  *
@@ -1333,6 +1365,23 @@ extern "C" {
 #define SDL_HINT_JOYSTICK_DEVICE "SDL_JOYSTICK_DEVICE"
 
 /**
+ * A variable containing a list of drum style controllers.
+ *
+ * The format of the string is a comma separated list of USB VID/PID pairs in
+ * hexadecimal form, e.g.
+ *
+ * `0xAAAA/0xBBBB,0xCCCC/0xDDDD`
+ *
+ * The variable can also take the form of "@file", in which case the named
+ * file will be loaded and interpreted as the value of the variable.
+ *
+ * This hint can be set anytime.
+ *
+ * \since This hint is available since SDL 3.4.4.
+ */
+#define SDL_HINT_JOYSTICK_DRUM_DEVICES "SDL_JOYSTICK_DRUM_DEVICES"
+
+/**
  * A variable controlling whether enhanced reports should be used for
  * controllers when using the HIDAPI driver.
  *
@@ -1413,10 +1462,10 @@ extern "C" {
 #define SDL_HINT_JOYSTICK_GAMEINPUT "SDL_JOYSTICK_GAMEINPUT"
 
 /**
- * A variable controlling whether GameInput should be used for handling 
- * GIP devices that require raw report processing, but aren't supported 
- * by HIDRAW, such as Xbox One Guitars.
- * 
+ * A variable controlling whether GameInput should be used for handling GIP
+ * devices that require raw report processing, but aren't supported by HIDRAW,
+ * such as Xbox One Guitars.
+ *
  * Note that this is only supported with GameInput 3 or newer.
  *
  * The variable can be set to the following values:
@@ -1470,6 +1519,23 @@ extern "C" {
  * \since This hint is available since SDL 3.2.0.
  */
 #define SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED "SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED"
+
+/**
+ * A variable containing a list of guitar style controllers.
+ *
+ * The format of the string is a comma separated list of USB VID/PID pairs in
+ * hexadecimal form, e.g.
+ *
+ * `0xAAAA/0xBBBB,0xCCCC/0xDDDD`
+ *
+ * The variable can also take the form of "@file", in which case the named
+ * file will be loaded and interpreted as the value of the variable.
+ *
+ * This hint can be set anytime.
+ *
+ * \since This hint is available since SDL 3.4.4.
+ */
+#define SDL_HINT_JOYSTICK_GUITAR_DEVICES "SDL_JOYSTICK_GUITAR_DEVICES"
 
 /**
  * A variable controlling whether the HIDAPI joystick drivers should be used.
@@ -1902,6 +1968,23 @@ extern "C" {
  * \since This hint is available since SDL 3.4.0.
  */
 #define SDL_HINT_JOYSTICK_HIDAPI_FLYDIGI "SDL_JOYSTICK_HIDAPI_FLYDIGI"
+
+/**
+ * A variable controlling whether the HIDAPI driver for GameSir controllers
+ * should be used.
+ *
+ * The variable can be set to the following values:
+ *
+ * - "0": HIDAPI driver is not used.
+ * - "1": HIDAPI driver is used.
+ *
+ * The default is the value of SDL_HINT_JOYSTICK_HIDAPI.
+ *
+ * This hint should be set before initializing joysticks and gamepads.
+ *
+ * \since This hint is available since SDL 3.5.0.
+ */
+#define SDL_HINT_JOYSTICK_HIDAPI_GAMESIR "SDL_JOYSTICK_HIDAPI_GAMESIR"
 
 /**
  * A variable controlling whether the HIDAPI driver for Nintendo Switch
@@ -2772,7 +2855,7 @@ extern "C" {
  *   (default)
  * - "1": Cursors will automatically match the display content scale (e.g. a
  *   2x sized cursor will be used when the window is on a monitor with 200%
- *   scale). This is currently implemented on Windows and Wayland.
+ *   scale). This is currently implemented on Windows.
  *
  * This hint needs to be set before creating cursors.
  *
@@ -3007,11 +3090,13 @@ extern "C" {
  * whether SDL follows this default behaviour or will always load an OpenGL ES
  * library.
  *
- * Circumstances where this is useful include - Testing an app with a
- * particular OpenGL ES implementation, e.g ANGLE, or emulator, e.g. those
- * from ARM, Imagination or Qualcomm. - Resolving OpenGL ES function addresses
- * at link time by linking with the OpenGL ES library instead of querying them
- * at run time with SDL_GL_GetProcAddress().
+ * Circumstances where this is useful include:
+ *
+ * - Testing an app with a particular OpenGL ES implementation, e.g ANGLE, or
+ *   emulator, e.g. those from ARM, Imagination or Qualcomm.
+ * - Resolving OpenGL ES function addresses at link time by linking with the
+ *   OpenGL ES library instead of querying them at run time with
+ *   SDL_GL_GetProcAddress().
  *
  * Caution: for an application to work with the default behaviour across
  * different OpenGL drivers it must query the OpenGL ES function addresses at
@@ -3952,9 +4037,8 @@ extern "C" {
  * The variable can be set to the following values:
  *
  * - "aspect" - Video modes will be displayed scaled, in their proper aspect
- *   ratio, with black bars.
+ *   ratio, with black bars. (default)
  * - "stretch" - Video modes will be scaled to fill the entire display.
- *   (default)
  * - "none" - Video modes will be displayed as 1:1 with no scaling.
  *
  * This hint should be set before creating a window.
@@ -4043,6 +4127,33 @@ extern "C" {
  * \since This hint is available since SDL 3.2.0.
  */
 #define SDL_HINT_VIDEO_WIN_D3DCOMPILER "SDL_VIDEO_WIN_D3DCOMPILER"
+
+/**
+ * A variable controlling whether the X Synchronization Extension is enabled.
+ *
+ * If set, this can result in smoother window resizing when rendering using
+ * OpenGL, however, there are some conditions:
+ *
+ * - It is only activated on windows created with the `SDL_WINDOW_OPENGL` flag
+ *   (windows using an SDL OpenGL renderer have this automatically set).
+ * - When activated, presentation must be done with `SDL_GL_SwapWindow()`
+ *   (`SDL_RenderPresent()` calls this internally for OpenGL renderers as
+ *   well).
+ *
+ * Enabling this and presenting via an external mechanism will result in sync
+ * requests not being acked, and hangs and other odd window behavior may
+ * result.
+ *
+ * The variable can be set to the following values:
+ *
+ * - "0": The X Synchronization Extension is disabled. (default)
+ * - "1": The X Synchronization Extension is enabled.
+ *
+ * This hint should be set before creating a window.
+ *
+ * \since This hint is available since SDL 3.4.10.
+ */
+#define SDL_HINT_VIDEO_X11_ENABLE_XSYNC_EXT "SDL_VIDEO_X11_ENABLE_XSYNC_EXT"
 
 /**
  * A variable controlling whether SDL should call XSelectInput() to enable
@@ -4549,7 +4660,8 @@ extern "C" {
  *
  * This enables the window to still receive input even if not in foreground.
  *
- * Focused windows that receive text input will still prevent input events from triggering.
+ * Focused windows that receive text input will still prevent input events
+ * from triggering.
  *
  * - "0": Input is not received when not in focus or foreground. (default)
  * - "1": Input will be received even when not in focus or foreground.

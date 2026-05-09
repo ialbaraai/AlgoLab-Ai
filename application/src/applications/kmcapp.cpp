@@ -1,6 +1,7 @@
 #include "../../include/applications/kmcapp.h"
 #include <iostream>
 #include <string>
+#include <string.h>
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 #include "imgui.h"
@@ -43,9 +44,11 @@ void KMCApp::run()
     ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer3_Init(renderer);
 
-    ImFont* font = ImGui::GetIO().Fonts->AddFontFromFileTTF("Roboto.ttf", 16.0f);
-
+    ImGuiIO& io = ImGui::GetIO();
     ImGuiStyle& style = ImGui::GetStyle();
+    
+    ImFont* font = io.Fonts->AddFontFromFileTTF("assets/Roboto.ttf", 16.0f);
+
     style.WindowBorderSize = 0.0f;
     style.ChildBorderSize = 0.0f;
     style.FrameBorderSize = 0.0f;
@@ -470,7 +473,7 @@ void KMCApp::run()
                     {
                         points.push_back(Point_T(std::string(nameBuf), x, y, { 35,35,35,255 }));
 
-                        strcpy_s(nameBuf, "");
+                        strcpy(nameBuf, "");
                         x = 0.0f;
                         y = 0.0f;
                     }
@@ -551,7 +554,7 @@ void KMCApp::run()
                     {
                         centroids.push_back(Centroid_T(std::string(nameBuf), x, y, { 25,25,25,255 }));
 
-                        strcpy_s(nameBuf, "");
+                        strcpy(nameBuf, "");
                         x = 0.0f;
                         y = 0.0f;
                     }
@@ -584,7 +587,7 @@ void KMCApp::run()
             ImGui::Begin("Add from CSV", &addcsv, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
             ImGui::TextColored(COL_MUTED, "SOURCE FILE");
             char buf[256];
-            strcpy_s(buf, csvfilepath.empty() ? "No file selected..." : csvfilepath.c_str());
+            strcpy(buf, csvfilepath.empty() ? "No file selected..." : csvfilepath.c_str());
             ImGui::SetNextItemWidth(-1);
             ImGui::InputText("##filepath", buf, sizeof(buf), ImGuiInputTextFlags_ReadOnly);
 
