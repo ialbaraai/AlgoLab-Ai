@@ -593,7 +593,7 @@ void KMCApp::run()
 
             if (ImGui::Button("Choose file", ImVec2(-1, 30)))
             {
-                char* returnedfile = tinyfd_openFileDialog("Choose a CSV file", "", 1, supported_files, "(*.csv)", 0);
+                const char* returnedfile = tinyfd_openFileDialog("Choose a CSV file", "", 1, supported_files, "(*.csv)", 0);
                 if (returnedfile) { csvfilepath = returnedfile; csvr = CSV_T(csvfilepath.c_str()); csvr.read(); }
             }
             ImGui::Separator();
