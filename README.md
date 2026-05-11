@@ -61,7 +61,7 @@ AlgoLab-Ai/
 │   ├── main.cpp               # Entry point
 │   └── CMakeLists.txt
 ├── assets/                    # Icons and fonts
-├── libs/                      # Vendored: ImGui, SDL3, SDL3_image, tinyfiledialogs
+├── libs/                      # Vendored: ImGui, tinyfiledialogs
 └── testing/                   # Sample CSV datasets for each algorithm
 ```
 
