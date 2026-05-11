@@ -21,7 +21,6 @@ set(IMGUI_SRC
 set(TINYFD_DIR ${LIBS_DIR}/tinyfiledialogs)
 set(TINYFD_SRC ${TINYFD_DIR}/tinyfiledialogs.c)
 
-# SDL (CLEAN WAY)
 find_package(SDL3 REQUIRED CONFIG)
 find_package(SDL3_image REQUIRED CONFIG)
 
