@@ -1,6 +1,6 @@
 # AlgoLab AI
 
-> A desktop application for visualizing and interacting with core Machine Learning algorithms — built from scratch in C++ using [SDL3](https://github.com/libsdl-org/SDL) and [Dear ImGui](https://github.com/ocornut/imgui).
+> A desktop application for visualizing and interacting with core Machine Learning Algorithms — built from scratch in C++ using [SDL3](https://github.com/libsdl-org/SDL) and [Dear ImGui](https://github.com/ocornut/imgui).
 
 ---
 
