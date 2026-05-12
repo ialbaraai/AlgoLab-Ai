@@ -98,8 +98,8 @@ sudo dnf install SDL3-devel SDL3_image-devel cmake ninja-build
 ```bash
 # Clone & install SDL3
 git clone https://github.com/microsoft/vcpkg && cd vcpkg
-.\bootstrap-vcpkg.bat
-.\vcpkg install sdl3 sdl3-image
+./bootstrap-vcpkg.bat
+./vcpkg install sdl3 sdl3-image
 # Install CMake & Ninja
 winget install Kitware.CMake
 winget install Ninja-build.Ninja
