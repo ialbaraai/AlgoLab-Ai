@@ -75,10 +75,41 @@ AlgoLab-Ai/
 - A C++20-compatible compiler (GCC 11+, Clang 13+, MSVC 2022+)
 - SDL3 and SDL3\_image installed on your system
 
-### Linux (Fedora)
+### macOS (Homebrew)
+
+```bash
+brew install sdl3 sdl3_image cmake ninja
+```
+
+### Linux (pacman)
+
+```bash
+sudo pacman -S sdl3 sdl3_image cmake ninja
+```
+
+### Linux (dnf)
 
 ```bash
 sudo dnf install SDL3-devel SDL3_image-devel cmake ninja-build
+```
+
+### Windows (vcpkg)
+
+```bash
+# Clone & install SDL3
+git clone https://github.com/microsoft/vcpkg && cd vcpkg
+.\bootstrap-vcpkg.bat
+.\vcpkg install sdl3 sdl3-image
+# Install CMake & Ninja
+winget install Kitware.CMake
+winget install Ninja-build.Ninja
+```
+
+### Windows (MSYS2 MinGW)
+
+```bash
+pacman -S mingw-w64-x86_64-SDL3 mingw-w64-x86_64-SDL3_image \
+          mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja
 ```
 
 ### Build Steps
