@@ -144,6 +144,6 @@ This project is licensed under the MIT License. See [LICENSE](./LICENSE) for det
 
 ## Author
 
-**Albaraa** — [@ialbaraai](https://github.com/ialbaraai)
+**albaraa** — [@ialbaraai](https://github.com/ialbaraai)
 
 > Built in under 5 days. All algorithms implemented from scratch.
